@@ -1,0 +1,51 @@
+# Comparative Evaluation of Word Representation and Text Classification Algorithms for Predicting Mental Illness from Social Media
+
+# 연구 개요
+- 정신 질환을 예측하는 방법에는 여러가지 접근 방식이 있지만 그 중에서 텍스트 분류를 활용하여 예측  
+- 세계적인 SNS Reddit 내 정신질환 서브레딧(r/ADHD, r/Anxiety, r/Bipolar, r/Depression, r/Schizophrenia)과 비정신질환 서브레딧(대조군 - r/fitness, r/jokes, r/meditation, r/parenting, r/relationship, r/teaching) 포스트를 사용  
+- 3가지 임베딩 방식(Randomly initialized, Word2Vec, Fasttext)과 4가지 텍스트 분류 알고리즘(Ensemble, Bi-LSTM, Bi-LSTM with Attention, Self Attention)을 각각 조합하여 여러개의 모델을 제작한 후 성능 평가를 통해 가장 좋은 모델을 도출한 후 Test Text가 6개의 정신질환 관련 label에 속할 확률을 barchart로 시각화   
+
+
+**1) 데이터 종류**    
+```
+1) adhd_origin.csv: subreddit이 adhd인 데이터   
+2) anxiety_origin.csv: subreddit이 anxiety인 데이터     
+3) bipolar_origin.csv: subreddit이 bipolar인 데이터   
+4) depression_origin.csv: subreddit이 depression인 데이터
+5) schizo_origin.csv: subreddit이 schizophrenia인 데이터
+6) non-health.csv: subreddit이 subreddit이 fitness, jokes, meditation, parenting, relationship, teaching인 대조군(정상군) 데이터
+```
+
+**2) 데이터 샘플**
+| 	 |subreedit	|author	|title	|text_content	|date	|
+|----|------|---------|---------------|---------|-----------|    
+
+
+**3) 데이터 사이즈**
+| 	 |ADHD	|Anxiety	|Bipolar	|Depression	|Depression	|non-health    |
+|----|------|---------|---------------|---------|-----------|-------------|
+|size|256065|298852   |162986	|720434	|60009	|425346	|    
+
+### 데이터 전처리
+
+**1) 데이터 전처리 항목**
+```
+1) Null 값 제거
+2) 각 서브레딧 당 게시글이 10개 이상 작성한 사용자의 post 중 하나를 랜덤 추출
+3) title과 text_content를 합친 'content' 행 만들기
+4) ?/!/'를 제외한 특수문자 제거
+5) 단어 단위로 토큰화
+```
+
+**2) 데이터 샘플**
+| 	 |subreedit	|author	|title	|text_content	|date	|content|
+|----|------|---------|---------------|---------|-----------|----------|   
+
+**3) 데이터 사이즈**
+| 	 |ADHD	|Anxiety	|Bipolar	|Depression	|Schizophrenia	|non-health    |
+|----|------|---------|---------------|---------|-----------|--------------|
+|Before Preprocessing|48147|40158   |65460	|157213	|20614	|425341	|    
+|After Preprocessing|94324|138824|37192|359368|13155|247569|
+
+
+
